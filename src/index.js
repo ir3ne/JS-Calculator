@@ -6,16 +6,14 @@ const calculator = {
 };
 
 const inputDigit = (digit) => {
-  const { displayValue, waitingForSecondOperand }  = calculator;
-
-  if (waitingForSecondOperand === true) {
+  if (calculator.waitingForSecondOperand === true) {
     calculator.displayValue = digit;
     calculator.waitingForSecondOperand = false;
   } else {
-    if (displayValue === '0') {
+    if (calculator.displayValue === '0') {
       calculator.displayValue = digit;
     } else {
-      calculator.displayValue = displayValue + digit;
+      calculator.displayValue = calculator.displayValue + digit;
     }
   }
 }
@@ -33,18 +31,17 @@ const inputDecimal = (dot) => {
 }
 
 const handleOperator = (nextOperator) => {
-  const { firstOperand, displayValue, operator } = calculator;
-  const inputValue = parseFloat(displayValue);
+  const inputValue = parseFloat(calculator.displayValue);
 
-  if (operator && calculator.waitingForSecondOperand) {
+  if (calculator.operator && calculator.waitingForSecondOperand) {
     calculator.operator = nextOperator;
     return;
   }
 
-  if (firstOperand === null && !isNaN(inputValue)) {
+  if (calculator.firstOperand === null && !isNaN(inputValue)) {
     calculator.firstOperand = inputValue;
-  } else if (operator) {
-    const result = calculate(firstOperand, inputValue, operator);
+  } else if (calculator.operator) {
+    const result = calculate(calculator.firstOperand, inputValue, calculator.operator);
     calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
     calculator.firstOperand = result;
   }
