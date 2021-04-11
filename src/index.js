@@ -51,17 +51,18 @@ const handleOperator = (nextOperator) => {
 }
 
 const calculate = (firstOperand, secondOperand, operator) => {
-  if (operator === '+') {
-    return firstOperand + secondOperand;
-  } else if (operator === '-') {
-    return firstOperand - secondOperand;
-  } else if (operator === '*') {
-    return firstOperand * secondOperand;
-  } else if (operator === '/') {
-    return firstOperand / secondOperand;
+  switch(operator) {
+    case '+':
+      return firstOperand + secondOperand;
+    case '-':
+      return firstOperand - secondOperand;
+    case '*':
+      return firstOperand * secondOperand;
+    case '/':
+      return firstOperand / secondOperand;
+    default:
+      return secondOperand
   }
-
-  return secondOperand;
 }
 
 const resetCalculator = () => {
